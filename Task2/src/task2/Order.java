@@ -97,6 +97,7 @@ public class Order {
         for (int i=0; i<dishArray.length; i++) duplicateArray[i] = dishArray[i];
         
         dishArray = duplicateArray;
+        //drag something here
     }
     
 }
