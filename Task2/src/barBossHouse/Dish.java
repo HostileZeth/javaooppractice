@@ -61,6 +61,13 @@ public class Dish {
         this.cost = cost;
     }
     
+    @Override
+    public String toString()
+    {         
+        
+        return String.format("Name: %s, Desc: %s, Price: %.2f$", name, description, cost);
+        
+    }
     
     //public static void main(String[] args) {
         // TODO code application logic here

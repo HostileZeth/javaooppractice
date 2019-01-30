@@ -22,14 +22,14 @@ public class Order {
     //не принимающий параметров, инициирующий массив из 16 элементов (сами элементы имеют значение null)
     Order()
     {
-        this.dishArray = new Dish[defaultDishCount];
+        this.dishArray = new Dish[defaultDishMassiveSize];
         dishCount = defaultDishCount;
     }
     
     //принимающий массив блюд
     Order (Dish[] dishMassive)
     {
-        this.dishArray = dishMassive;
+        this.dishArray = dishMassive.clone();
         this.dishCount = dishMassive.length;
     }
     
@@ -101,10 +101,11 @@ public class Order {
         for (int i=0; i<dishCount; i++)
         {
             
-            resultArray[i] = dishArray[i];
+            //resultArray[i] = dishArray[i];
             
             Dish currentDish = dishArray[i];
             resultArray[i] = new Dish(currentDish.getName(), currentDish.getDescription(), currentDish.getCost());
+            
         }
         
         return resultArray;
@@ -116,8 +117,10 @@ public class Order {
         double resultPrice = 0;
     
         for (int i=0; i<dishCount; i++)
-            resultPrice = dishArray[i].getCost();
-        
+        {
+            resultPrice += dishArray[i].getCost();
+            //System.out.println("DISH COST:" + dishArray[i].getCost());
+        }
         
         return resultPrice;
     }
@@ -134,7 +137,7 @@ public class Order {
     }
     
     //возвращающий массив блюд, отсортированный по убыванию цены. 
-    public Dish[] getDishArraySortedByPrice()
+    public Dish[] getDishArraySortedByPrice() // FIX IT
     {
         Dish[] resultDishArray = getDishArray();
         
@@ -152,9 +155,11 @@ public class Order {
         Dish[] sortedDishArray = getDishArray();
         qsortDishesByName(sortedDishArray, 0, dishCount-1);
         
-        for (int i=0; i<dishCount+1; i++)
-            if (sortedDishArray[i].getName().equals( sortedDishArray[i+1].getName()))
+        for (int i=0; i<dishCount-1; i++)
+            if (!sortedDishArray[i].getName().equals( sortedDishArray[i+1].getName()))
                 namesArray[namesCount++] = sortedDishArray[i].getName();
+        
+        namesArray[namesCount++] = sortedDishArray[dishCount-1].getName();
         
         String[] finalNamesArray = new String[namesCount];
         for (int i=0; i<namesCount; i++)
@@ -163,7 +168,7 @@ public class Order {
         return finalNamesArray;
     }
     
-    static private void qsortDishesByPrice(Dish[] array, int low, int high)
+    static private void qsortDishesByPrice(Dish[] array, int low, int high) // FIX IT
     {
         if (array.length == 0) return; //nothing to sort
         
@@ -180,13 +185,16 @@ public class Order {
                 i++;
             
             while (array[j].getCost() > splitValue)
-                j++;
+                j--;
             
             if (i<=j)
             {
                 Dish dishBuffer = array[i];
                 array[i] = array[j];
                 array[j] = dishBuffer;
+                
+                i++;
+                j--;
             }
         }
         
@@ -205,6 +213,8 @@ public class Order {
         int m = (low + high) / 2;
         String splitValue = array[m].getName();
         
+        //System.out.println("SPLIT VALUE:" + splitValue);
+        
         int i = low; int j = high;
         
         while (i<=j)
@@ -213,18 +223,24 @@ public class Order {
                 i++;
             
             while (array[j].getName().compareTo(splitValue) > 0)
-                j++;
+                j--;
             
             if (i<=j)
             {
                 Dish dishBuffer = array[i];
                 array[i] = array[j];
                 array[j] = dishBuffer;
+                i++;
+                j--;
             }
+            
+            //System.out.println("I:"+i+"J:"+j);
         }
         
-        if (low < j) qsortDishesByPrice(array, low, j);
-        if (high > i) qsortDishesByPrice(array, i, high);
+        //System.out.println();
+        
+        if (low < j) qsortDishesByName(array, low, j);
+        if (high > i) qsortDishesByName(array, i, high);
         
         
     }
@@ -244,5 +260,17 @@ public class Order {
         {
             dishArray[i] = dishArray[i+1];
         }
+    }
+    
+    @Override
+    public String toString()
+    {
+        String outString = "This order contains:\n";
+        if (dishCount == 0) outString += "NOTHING xD\n";
+        
+        for (int i=0; i<dishCount; i++)
+            outString += dishArray[i].toString() + "\n";
+        
+        return outString;
     }
 }

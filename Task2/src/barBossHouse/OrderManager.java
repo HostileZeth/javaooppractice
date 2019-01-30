@@ -71,8 +71,10 @@ public class OrderManager {
     {
         double priceSum = 0;
         for (int i=0; i<orderArray.length; i++)
+        {
+            //System.out.println("Table "+i+" price: " + orderArray[i].getOrderPrice());
             if (orderArray[i]!=null) priceSum += orderArray[i].getOrderPrice();
-        
+        }
         return priceSum;
     }
     
@@ -92,5 +94,20 @@ public class OrderManager {
         }
         
         return dishCount;
+    }
+    
+    @Override
+    public String toString()
+    {
+        String out = "ORDER MANAGER has THOSE TABLES:\n";
+        
+        for (int i=0; i<orderArray.length; i++)
+        {
+            out += "Table "+i+":\n";
+            if (orderArray[i] == null) out += "Empty table\n";
+            else out += orderArray[i].toString();
+        }
+        
+        return out;
     }
 }
