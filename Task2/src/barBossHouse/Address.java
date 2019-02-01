@@ -20,6 +20,8 @@ public class Address { //Immutable
     static private String DEFAULT_STRING_VALUE ="";
     static private int DEFAULT_INT_VALUE = -1;
     
+    public static Address defaultAddress = new Address();
+    
     public Address ()
     {
         city = DEFAULT_STRING_VALUE;
@@ -46,6 +48,37 @@ public class Address { //Immutable
         this.buildingNumber = buildingNumber;
         this.buildingChar = buildingChar;
         this.roomNumber = roomNumber;
+    }
+    
+    //not setting anything but getting everything
+    //because of IMMUTABLENESS
+    public String getCity()
+    {
+        return city;
+    }
+    public String getStreet()
+    {
+        return street;
+    }
+    
+    public int getPostIndex()
+    {
+        return postIndex;
+    }
+    
+    public int getBuildingNumber()
+    {
+        return buildingNumber;
+    }
+    
+    public char getBuildingChar()
+    {
+        return buildingChar;
+    }
+    
+    public int getRoomNumber()
+    {
+        return roomNumber;
     }
     
 }
