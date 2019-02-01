@@ -11,7 +11,7 @@ package barBossHouse;
  */
 public class OrderManager {
     
-    Order[] orderArray;
+    private Order[] orderArray;
     
     OrderManager (int tableCount)
     {
