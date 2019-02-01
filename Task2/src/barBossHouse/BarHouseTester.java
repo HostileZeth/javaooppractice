@@ -76,6 +76,27 @@ public class BarHouseTester {
         
         System.out.println(OM.toString());
         
+        System.out.println("Lets get the order from the table !");
+        Order testOrder = OM.getOrder(0);
+        
+        System.out.println(testOrder);
+        
+        System.out.println("Lets add the dish!");
+        testOrder.addDish(testDishesArray[2]);
+        
+        System.out.println(testOrder);
+        
+        System.out.println("Lets see free tablezzzz........");
+        int[] freeTablez = OM.getFreeTablesNumberArray();
+        for(int i=0; i<freeTablez.length; i++)
+            System.out.println(freeTablez[i]);
+        
+        System.out.println("Lets see used tablezzzz........");
+        int[] usedTablez = OM.getUsedTablesNumberArray();
+        for(int i=0; i<usedTablez.length; i++)
+            System.out.println(usedTablez[i]);
+
+        
         System.out.println("Order processing is done!");
     }
     
@@ -142,21 +163,128 @@ public class BarHouseTester {
         dishNames = OM.getOrder(2).getDishNamesArray();
         for (String s : dishNames)
             System.out.println(s);
-        
-        System.out.println("Order 1 meals sorted by price:");
-        //Dish[] sortedDishArray = OM.getOrder(1).getDishArraySortedByPrice();
-        Dish[] sortedDishArray = order2.getDishArraySortedByPrice();
-        for (Dish d : sortedDishArray) System.out.println(d);
+
     }
-    //this
+    
+    public static void orderPriceSort()
+    {
+        Order testingOrder = new Order();
+        
+        testingOrder.addDish(testDishesArray[2]);
+        testingOrder.addDish(testDishesArray[2]);
+        testingOrder.addDish(testDishesArray[1]);
+        testingOrder.addDish(testDishesArray[0]);
+        testingOrder.addDish(testDishesArray[3]);
+        testingOrder.addDish(testDishesArray[4]);
+        testingOrder.addDish(testDishesArray[3]);
+        
+        System.out.println("Order without any sorting\n");
+        System.out.println(testingOrder);
+        
+        Dish[] sortedDishArray = testingOrder.getDishArraySortedByPrice();
+        
+        System.out.println("\nOrder sorted\n");
+        
+        for(int i=0; i<sortedDishArray.length; i++)
+            System.out.println(sortedDishArray[i].toString());
+    }
+    
+    public static void testDishCounter()
+    {
+        OrderManager OM = new OrderManager(3);
+        
+        OM.setOrder(0, new Order());
+        OM.setOrder(1, new Order());
+        OM.setOrder(2, new Order());
+        
+        OM.addDishToOrder(1, testDishesArray[0]);
+        OM.addDishToOrder(1, testDishesArray[0]);
+        OM.addDishToOrder(1, testDishesArray[0]);
+        OM.addDishToOrder(1, testDishesArray[3]);
+        
+        OM.addDishToOrder(0, testDishesArray[0]);
+        OM.addDishToOrder(0, testDishesArray[0]);
+        OM.addDishToOrder(0, testDishesArray[2]);
+        
+        OM.addDishToOrder(2, testDishesArray[1]);
+        OM.addDishToOrder(2, testDishesArray[1]);
+        OM.addDishToOrder(2, testDishesArray[0]);
+        OM.addDishToOrder(2, testDishesArray[0]);
+        
+        String dishesToCount = "Fried Potato";
+        
+        System.out.println("POTATOS:"+OM.countOverallDishCount(dishesToCount));
+        
+        System.out.println("Lets count potatos on the table 0!");
+        System.out.println(OM.getOrder(0).toString());
+        System.out.println("POTATOS:"+ OM.getOrder(0).getDishCountByName(dishesToCount));
+        
+    }
+    
+    public static void sortZeroElements()
+    {   
+        System.out.println("Testing on zero data");
+        OrderManager orderManager = new OrderManager(3);
+        System.out.println("POTATOS:"+ orderManager.countOverallDishCount("Fried Potato"));
+        System.out.println("Let's sort!");
+        
+        orderManager.setOrder(0, new Order());
+        orderManager.setOrder(1, new Order());
+        orderManager.setOrder(2, new Order());
+        String[] dishNameArray = orderManager.getOrder(1).getDishNamesArray();
+        
+        
+        
+        for (int i=0; i<dishNameArray.length; i++)
+            System.out.println(dishNameArray[i]);
+        
+        System.out.println("SUMMARY:"+ orderManager.getSummaryOrderPrice()+"$");
+        
+        
+    }
+    
+    public static void removeDishTester()
+    {
+        System.out.println("Test dishes removing...");
+        System.out.println("Today we removing :" + testDishesArray[0].getName());
+        Order newOrder = new Order();
+        newOrder.addDish(testDishesArray[0]);
+        newOrder.addDish(testDishesArray[0]);
+        newOrder.addDish(testDishesArray[1]);
+        newOrder.addDish(testDishesArray[2]);
+        
+        System.out.println(newOrder.removeFirstDishByName(testDishesArray[1].getName()));
+        
+        System.out.println("Lets remove the potato");
+        
+        
+        System.out.println(newOrder.removeAllDishByName(testDishesArray[0].getName()));
+        
+        
+        
+        System.out.println("After removing....");
+        System.out.println(newOrder);
+        
+        System.out.println("Remove one potato from only beer order:" + newOrder.removeFirstDishByName(testDishesArray[0].getName()));
+        System.out.println("Remove one beer from only beer order:" + newOrder.removeFirstDishByName(testDishesArray[2].getName()));
+        
+        System.out.println("After removing....");
+        System.out.println(newOrder);
+        
+    }
+    
     public static void main(String[] args) {
         initializeDishArray();
-        //testDishMethods();
-        //initializeOrderManagerArray();
-        //someGenericOrdersProcessing(testOrdManArray[0]);
+        testDishMethods();
+        initializeOrderManagerArray();
+        someGenericOrdersProcessing(testOrdManArray[0]);
 
         testOrderMethods();
-
+        orderPriceSort();
+        testDishCounter();
+        sortZeroElements();
+        
+        removeDishTester();
     }
 }
 

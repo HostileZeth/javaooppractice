@@ -58,8 +58,9 @@ public class Order {
     {
         boolean isRemoved = false;
         
-        for (int i=0; i<dishArray.length; i++)
+        for (int i=0; i<dishCount; i++)
         {
+            
             if (dishName.equals(dishArray[i].getName()))
             {
                 removeDishByIndex(i);
@@ -76,11 +77,12 @@ public class Order {
     {
         int removedCount = 0;
         
-        for (int i=0; i<dishArray.length; i++)
+        for (int i=0; i<dishCount; i++)
         {
             if (dishName.equals(dishArray[i].getName()))
             {
                 removeDishByIndex(i);
+                i--;
                 removedCount++;
             }
         }
@@ -133,16 +135,17 @@ public class Order {
         for (int i=0; i<dishCount; i++)
             if (dishArray[i].getName().equals(dishName)) resultCount++;
         
-        return 0;
+        return resultCount;
     }
-    
-    //возвращающий массив блюд, отсортированный по убыванию цены. 
-    public Dish[] getDishArraySortedByPrice() // FIX IT
+
+    public Dish[] getDishArraySortedByPrice()
     {
         Dish[] resultDishArray = getDishArray();
         
-        qsortDishesByPrice(dishArray, 0, dishCount - 1);
+        if (dishCount == 0) return resultDishArray;
         
+        qsortDishesByPrice(resultDishArray, 0, dishCount-1);
+             
         return resultDishArray;
     }
     
@@ -150,6 +153,9 @@ public class Order {
     public String[] getDishNamesArray()
     {
         String[] namesArray = new String[dishCount];
+        
+        if (dishCount == 0) return namesArray;
+        
         int namesCount = 0;
         
         Dish[] sortedDishArray = getDishArray();
@@ -200,8 +206,7 @@ public class Order {
         
         if (low < j) qsortDishesByPrice(array, low, j);
         if (high > i) qsortDishesByPrice(array, i, high);
-        
-        
+
     }
     
     static private void qsortDishesByName(Dish[] array, int low, int high)
@@ -260,6 +265,9 @@ public class Order {
         {
             dishArray[i] = dishArray[i+1];
         }
+        
+        dishArray[dishCount-1] = null;
+        dishCount--;
     }
     
     @Override

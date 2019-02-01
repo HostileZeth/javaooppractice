@@ -52,7 +52,7 @@ public class OrderManager {
         int currentUsedTable = 0;
         
         for (int i=0; i<orderArray.length; i++)
-            if (orderArray[i] == null) usedTables[currentUsedTable++] = i;
+            if (orderArray[i] != null) usedTables[currentUsedTable++] = i;
         
         int[] usedTablesFinal = new int[currentUsedTable];
         
@@ -60,6 +60,22 @@ public class OrderManager {
             usedTablesFinal[i] = usedTables[i];
         
         return usedTablesFinal;
+    }
+    
+    public int[] getFreeTablesNumberArray()
+    {
+        int[] freeTables = new int[orderArray.length];
+        int currentFreeTable = 0;
+        
+        for (int i=0; i<orderArray.length; i++)
+            if (orderArray[i] == null) freeTables[currentFreeTable++] = i;
+        
+        int[] freeTablesFinal = new int[currentFreeTable];
+        
+        for (int i=0; i<currentFreeTable; i++)
+            freeTablesFinal[i] = freeTables[i];
+        
+        return freeTablesFinal;
     }
     
     public Order[] getOrderArray()
@@ -86,11 +102,7 @@ public class OrderManager {
         for (int i=0; i<orderArray.length; i++)
         {
             if (orderArray[i] == null) continue;
-            
-            currentDishArray = orderArray[i].getDishArray();
-            
-            for (int j=0; j<currentDishArray.length; j++)
-                if (currentDishArray[j].getName().equals(datDish)) dishCount++;
+            else dishCount += orderArray[i].getDishCountByName(datDish);
         }
         
         return dishCount;
