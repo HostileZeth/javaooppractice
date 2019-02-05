@@ -128,5 +128,8 @@ public class Address { //Immutable
         
         System.out.println(anotherNewAddr.hashCode());
         System.out.println(Address.defaultAddress.hashCode());
+        
+        //if (newAddr.hashCode() == Address.defaultAddress.hashCode()) System.out.println("it works");
+        
     }
 }
