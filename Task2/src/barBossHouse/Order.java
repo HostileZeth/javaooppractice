@@ -15,19 +15,19 @@ public class Order {
     private static int defaultDishCount = 0;
     
     
-    private Dish[] dishArray;
+    private MenuItem[] dishArray;
     private int dishCount;
     
     //конструкторы
     //не принимающий параметров, инициирующий массив из 16 элементов (сами элементы имеют значение null)
-    Order()
+    public Order()
     {
-        this.dishArray = new Dish[defaultDishMassiveSize];
+        this.dishArray = new MenuItem[defaultDishMassiveSize];
         dishCount = defaultDishCount;
     }
     
     //принимающий массив блюд
-    Order (Dish[] dishMassive)
+    public Order (MenuItem[] dishMassive)
     {
         this.dishArray = dishMassive.clone();
         this.dishCount = dishMassive.length;
@@ -35,14 +35,14 @@ public class Order {
     
     //принимающий целое число – емкость массива, инициирующий массив указанным числом элементов (сами элементы имеют значение 
     //null)
-    Order (int dishCount)
+    public Order (int dishCount)
     {
-        this.dishArray = new Dish[dishCount];
+        this.dishArray = new MenuItem[dishCount];
         this.dishCount = defaultDishCount;
     }
     
-    //добавляющий блюдо в заказ (принимает ссылку на экземпляр класса Dish)
-    public boolean addDish(Dish anotherDish)
+    //добавляющий блюдо в заказ (принимает ссылку на экземпляр класса MenuItem)
+    public boolean addDish(MenuItem anotherDish)
     {
         if (dishArray.length == dishCount) resizeArray();
         dishArray[dishCount] = anotherDish;
@@ -97,15 +97,15 @@ public class Order {
     }
     
     //возвращающий массив блюд (значений null в массиве быть не должно)
-    public Dish[] getDishArray()
+    public MenuItem[] getDishArray()
     {
-        Dish[] resultArray = new Dish[dishCount];
+        MenuItem[] resultArray = new MenuItem[dishCount];
         for (int i=0; i<dishCount; i++)
         {
             
             //resultArray[i] = dishArray[i];
             
-            Dish currentDish = dishArray[i];
+            MenuItem currentDish = dishArray[i];
             resultArray[i] = new Dish(currentDish.getName(), currentDish.getDescription(), currentDish.getCost());
             
         }
@@ -138,9 +138,9 @@ public class Order {
         return resultCount;
     }
 
-    public Dish[] getDishArraySortedByPrice()
+    public MenuItem[] getDishArraySortedByPrice()
     {
-        Dish[] resultDishArray = getDishArray();
+        MenuItem[] resultDishArray = getDishArray();
         
         if (dishCount == 0) return resultDishArray;
         
@@ -158,7 +158,7 @@ public class Order {
         
         int namesCount = 0;
         
-        Dish[] sortedDishArray = getDishArray();
+        MenuItem[] sortedDishArray = getDishArray();
         qsortDishesByName(sortedDishArray, 0, dishCount-1);
         
         for (int i=0; i<dishCount-1; i++)
@@ -174,7 +174,7 @@ public class Order {
         return finalNamesArray;
     }
     
-    static private void qsortDishesByPrice(Dish[] array, int low, int high) // FIX IT
+    static private void qsortDishesByPrice(MenuItem[] array, int low, int high) // FIX IT
     {
         if (array.length == 0) return; //nothing to sort
         
@@ -195,7 +195,7 @@ public class Order {
             
             if (i<=j)
             {
-                Dish dishBuffer = array[i];
+                MenuItem dishBuffer = array[i];
                 array[i] = array[j];
                 array[j] = dishBuffer;
                 
@@ -209,7 +209,7 @@ public class Order {
 
     }
     
-    static private void qsortDishesByName(Dish[] array, int low, int high)
+    static private void qsortDishesByName(MenuItem[] array, int low, int high)
     {
         if (array.length == 0) return; //nothing to sort
         
@@ -232,7 +232,7 @@ public class Order {
             
             if (i<=j)
             {
-                Dish dishBuffer = array[i];
+                MenuItem dishBuffer = array[i];
                 array[i] = array[j];
                 array[j] = dishBuffer;
                 i++;
@@ -252,7 +252,7 @@ public class Order {
     
     private void resizeArray()
     {
-        Dish[] duplicateArray = new Dish[dishArray.length * 2];
+        MenuItem[] duplicateArray = new MenuItem[dishArray.length * 2];
         for (int i=0; i<dishArray.length; i++) duplicateArray[i] = dishArray[i];
         
         dishArray = duplicateArray;

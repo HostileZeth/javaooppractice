@@ -9,68 +9,43 @@ package barBossHouse;
  *
  * @author rLogic
  */
-public class Dish {
+public class Dish extends MenuItem {
     
-    static private double defaultCost = 0;
-
-    private String name;
-    private double cost;
-    private String description;
-    
-    Dish (String name, String description)
+    public Dish (String name, String description)
     {
-        this.name = name;
-        this.description = description;
-        this.cost = defaultCost;
+        super(name, description);
     }
     
-    Dish (String name, String description, double cost)
+    public Dish(String name, String description, double cost)
     {
-        this.name = name;
-        this.description = description;
-        this.cost = cost;
+        super(name, description, cost);
     }
     
-    public String getName ()
-    {
-        return name;
-    }
-    
-    public String getDescription ()
-    {
-        return description;
-    }
-    
-    public double getCost ()
-    {
-        return cost;
-    }
-    
-    public void setName (String name)
-    {
-        this.name = name;
-    }
-    
-    public void setDescription (String description)
-    {
-        this.description = description;
-    }
-    
-    public void setCost (double cost)
-    {
-        this.cost = cost;
-    }
-    
-    @Override
+        @Override
     public String toString()
     {         
         
-        return String.format("Name: %s, Desc: %s, Price: %.2f$", name, description, cost);
+        return getDescription().equals("") ? String.format("Name %s, cost %.2fр.", super.getName(), super.getCost()) :
+                String.format("Name %s, cost %.2fр., description %s", super.getName(), super.getCost(), super.getDescription());
         
     }
     
-    //public static void main(String[] args) {
-        // TODO code application logic here
-    //}
+    @Override 
+    public boolean equals(Object obj)
+    {
+        if (obj.getClass() != Dish.class) return false;
+        MenuItem objMenuItem = (MenuItem)obj;
+        
+        if (!objMenuItem.getName().equals(super.getName())) return false;
+        return objMenuItem.getCost() == super.getCost();
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        int result = getName().hashCode() ^ Math.round((float)getCost() * super.COST_HASH_MULTIPLIER) ^ getDescription().hashCode();
+        
+        return result;
+    }
     
 }

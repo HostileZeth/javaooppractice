@@ -11,7 +11,7 @@ package barBossHouse;
  */
 public class BarHouseTester {
     
-    static Dish[] testDishesArray;
+    static MenuItem[] testDishesArray;
     static OrderManager[] testOrdManArray;
     
     public static void initializeDishArray()
@@ -40,9 +40,9 @@ public class BarHouseTester {
         System.out.println("Dish #0 description is " + testDishesArray[0].getDescription());
         System.out.println("Dish #0 cost is " + testDishesArray[0].getCost());
         System.out.println("Lets change all the data about dish #3");
-        testDishesArray[3].setCost(9.99);
-        testDishesArray[3].setName("Juss A Nice Burger");
-        testDishesArray[3].setDescription("You definitely won't be sorry about spending money on this");
+        //testDishesArray[3].setCost(9.99);
+        //testDishesArray[3].setName("Juss A Nice Burger");
+        //testDishesArray[3].setDescription("You definitely won't be sorry about spending money on this");
         System.out.println(testDishesArray[3].toString());
         System.out.println("Testing Dish class methods is done!\n");
     }
@@ -119,7 +119,7 @@ public class BarHouseTester {
         order2.addDish(testDishesArray[1]);
         order2.addDish(testDishesArray[1]);
         
-        Dish[] dishArray = new Dish[3];
+        MenuItem[] dishArray = new MenuItem[3];
         
         dishArray[0] = testDishesArray[1];
         dishArray[1] = testDishesArray[3];
@@ -146,8 +146,8 @@ public class BarHouseTester {
         System.out.println("Specific data method testing:\n");
         
         System.out.println("Order 1 meals names:");
-        Dish[] gettingDishArray = OM.getOrder(1).getDishArray();
-        for (Dish d : gettingDishArray) System.out.println(d);
+        MenuItem[] gettingDishArray = OM.getOrder(1).getDishArray();
+        for (MenuItem d : gettingDishArray) System.out.println(d);
         
         System.out.println("Order 1 meals sorted:");
         String[] dishNames = OM.getOrder(1).getDishNamesArray();
@@ -157,7 +157,7 @@ public class BarHouseTester {
         
         System.out.println("Order 2 meals:");
         gettingDishArray = OM.getOrder(2).getDishArray();
-        for (Dish d : gettingDishArray) System.out.println(d);
+        for (MenuItem d : gettingDishArray) System.out.println(d);
         
         System.out.println("Order 2 meals names:");
         dishNames = OM.getOrder(2).getDishNamesArray();
@@ -181,7 +181,7 @@ public class BarHouseTester {
         System.out.println("Order without any sorting\n");
         System.out.println(testingOrder);
         
-        Dish[] sortedDishArray = testingOrder.getDishArraySortedByPrice();
+        MenuItem[] sortedDishArray = testingOrder.getDishArraySortedByPrice();
         
         System.out.println("\nOrder sorted\n");
         

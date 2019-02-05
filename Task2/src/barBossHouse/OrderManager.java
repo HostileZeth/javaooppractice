@@ -33,7 +33,7 @@ public class OrderManager {
         orderArray[tableNumber] = null;
     }
     
-    public void addDishToOrder(int tableNumber, Dish dish)
+    public void addDishToOrder(int tableNumber, MenuItem dish)
     {
         orderArray[tableNumber].addDish(dish);
     }
@@ -96,7 +96,7 @@ public class OrderManager {
     
     public int countOverallDishCount (String datDish)
     {
-        Dish[] currentDishArray;
+        MenuItem[] currentDishArray;
         int dishCount = 0;
         
         for (int i=0; i<orderArray.length; i++)
