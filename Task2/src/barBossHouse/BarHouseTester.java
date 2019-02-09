@@ -64,20 +64,20 @@ public class BarHouseTester {
     {
         System.out.println("Lets process some orders!");
         
-        OM.setOrder(0, new Order());
-        OM.setOrder(2, new Order());
-        OM.setOrder(3, new Order());
+        OM.setOrder(0, new TableOrder());
+        OM.setOrder(2, new TableOrder());
+        OM.setOrder(3, new TableOrder());
         
         System.out.println("After few orders placed, first free table is :" + OM.getFirstFreeTableNumber());
         
-        OM.setOrder(OM.getFirstFreeTableNumber(), new Order());
+        OM.setOrder(OM.getFirstFreeTableNumber(), new TableOrder());
         
         System.out.println("After one more order is placed, first free table is :" + OM.getFirstFreeTableNumber());
         
         System.out.println(OM.toString());
         
         System.out.println("Lets get the order from the table !");
-        Order testOrder = OM.getOrder(0);
+        TableOrder testOrder = OM.getOrder(0);
         
         System.out.println(testOrder);
         
@@ -102,11 +102,11 @@ public class BarHouseTester {
     
     public static void testOrderMethods ()
     {
-        Order order1 = new Order();
+        TableOrder order1 = new TableOrder();
 
         order1.addDish(testDishesArray[0]);
         
-        Order order2 = new Order(8);
+        TableOrder order2 = new TableOrder(8);
         
         order2.addDish(testDishesArray[0]);
         order2.addDish(testDishesArray[0]);
@@ -125,7 +125,7 @@ public class BarHouseTester {
         dishArray[1] = testDishesArray[3];
         dishArray[2] = testDishesArray[4];
         
-        Order order3 = new Order(dishArray);
+        TableOrder order3 = new TableOrder(dishArray);
         
         OrderManager OM = new OrderManager(3);
         
@@ -168,7 +168,7 @@ public class BarHouseTester {
     
     public static void orderPriceSort()
     {
-        Order testingOrder = new Order();
+        TableOrder testingOrder = new TableOrder();
         
         testingOrder.addDish(testDishesArray[2]);
         testingOrder.addDish(testDishesArray[2]);
@@ -193,9 +193,9 @@ public class BarHouseTester {
     {
         OrderManager OM = new OrderManager(3);
         
-        OM.setOrder(0, new Order());
-        OM.setOrder(1, new Order());
-        OM.setOrder(2, new Order());
+        OM.setOrder(0, new TableOrder());
+        OM.setOrder(1, new TableOrder());
+        OM.setOrder(2, new TableOrder());
         
         OM.addDishToOrder(1, testDishesArray[0]);
         OM.addDishToOrder(1, testDishesArray[0]);
@@ -228,9 +228,9 @@ public class BarHouseTester {
         System.out.println("POTATOS:"+ orderManager.countOverallDishCount("Fried Potato"));
         System.out.println("Let's sort!");
         
-        orderManager.setOrder(0, new Order());
-        orderManager.setOrder(1, new Order());
-        orderManager.setOrder(2, new Order());
+        orderManager.setOrder(0, new TableOrder());
+        orderManager.setOrder(1, new TableOrder());
+        orderManager.setOrder(2, new TableOrder());
         String[] dishNameArray = orderManager.getOrder(1).getDishNamesArray();
         
         
@@ -247,7 +247,7 @@ public class BarHouseTester {
     {
         System.out.println("Test dishes removing...");
         System.out.println("Today we removing :" + testDishesArray[0].getName());
-        Order newOrder = new Order();
+        TableOrder newOrder = new TableOrder();
         newOrder.addDish(testDishesArray[0]);
         newOrder.addDish(testDishesArray[0]);
         newOrder.addDish(testDishesArray[1]);
@@ -295,7 +295,7 @@ public class BarHouseTester {
         
         System.out.println("First free table:" + CafeOwner.getFirstFreeTableNumber());
         
-        Order someOrder = new Order();
+        TableOrder someOrder = new TableOrder();
         CafeOwner.setOrder(0, someOrder);
         CafeOwner.setOrder(1, someOrder);
         CafeOwner.setOrder(3, someOrder);

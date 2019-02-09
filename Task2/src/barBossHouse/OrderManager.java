@@ -11,19 +11,19 @@ package barBossHouse;
  */
 public class OrderManager {
     
-    Order[] orderArray;
+    TableOrder[] orderArray;
     
     OrderManager (int tableCount)
     {
-        orderArray = new Order[tableCount];
+        orderArray = new TableOrder[tableCount];
     }
     
-    public void setOrder(int tableNumber, Order order)
+    public void setOrder(int tableNumber, TableOrder order)
     {
         orderArray[tableNumber] = order;
     }
     
-    public Order getOrder(int tableNumber)
+    public TableOrder getOrder(int tableNumber)
     {
         return orderArray[tableNumber];
     }
@@ -78,7 +78,7 @@ public class OrderManager {
         return freeTablesFinal;
     }
     
-    public Order[] getOrderArray()
+    public TableOrder[] getOrderArray()
     {
         return orderArray;
     }

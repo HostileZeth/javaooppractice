@@ -9,7 +9,7 @@ package barBossHouse;
  *
  * @author rLogic
  */
-public class Order {
+public class TableOrder {
     
     private static int defaultDishMassiveSize = 16;
     private static int defaultDishCount = 0;
@@ -18,27 +18,44 @@ public class Order {
     private MenuItem[] dishArray;
     private int dishCount;
     
+    private Customer customer;
+    
     //конструкторы
     //не принимающий параметров, инициирующий массив из 16 элементов (сами элементы имеют значение null)
-    public Order()
+    public TableOrder()
     {
         this.dishArray = new MenuItem[defaultDishMassiveSize];
-        dishCount = defaultDishCount;
+        this.dishCount = defaultDishCount;
+        
+        this.customer = new Customer();
+        
     }
     
     //принимающий массив блюд
-    public Order (MenuItem[] dishMassive)
+    public TableOrder (MenuItem[] dishMassive, Customer customer)
     {
         this.dishArray = dishMassive.clone();
         this.dishCount = dishMassive.length;
+        this.customer = customer;
     }
     
     //принимающий целое число – емкость массива, инициирующий массив указанным числом элементов (сами элементы имеют значение 
     //null)
-    public Order (int dishCount)
+    public TableOrder (int dishCount, Customer customer)
     {
         this.dishArray = new MenuItem[dishCount];
         this.dishCount = defaultDishCount;
+        this.customer = customer;
+    }
+    
+    public void setCustomer (Customer customer)
+    {
+        this.customer = customer;
+    }
+    
+    public Customer getCustomer ()
+    {
+        return customer;
     }
     
     //добавляющий блюдо в заказ (принимает ссылку на экземпляр класса MenuItem)
@@ -273,6 +290,51 @@ public class Order {
     @Override
     public String toString()
     {
+        String result = "TableOrder: " + dishCount + "\n";
+        
+        for (int i=0; i<dishCount; i++)
+            result += dishArray[i].toString() + "\n";
+        
+        return result;
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        int result = customer.hashCode() ^ dishCount;
+        
+        for (int i=0; i<dishCount; i++)
+            result ^= dishArray[i].hashCode();
+            
+        return result;
+    }
+    
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (obj.getClass() != TableOrder.class) return false;
+        TableOrder anotherTableOrder = (TableOrder) obj;
+        
+        if (this.dishCount != anotherTableOrder.dishCount) return false; 
+        
+        int thisTableOrderHashSum = 0;
+        int anotherTableOrderHashSum = 0;
+        
+        for (int i=0; i<dishCount; i++)
+        {
+            thisTableOrderHashSum += dishArray[i].hashCode();
+            thisTableOrderHashSum += anotherTableOrder.dishArray[i].hashCode();
+        }
+        
+        
+        return thisTableOrderHashSum == anotherTableOrderHashSum;
+        
+        
+    }
+    
+    /*@Override
+    public String toString()
+    {
         String outString = "This order contains:\n";
         if (dishCount == 0) outString += "NOTHING xD\n";
         
@@ -280,5 +342,5 @@ public class Order {
             outString += dishArray[i].toString() + "\n";
         
         return outString;
-    }
+    }*/
 }
