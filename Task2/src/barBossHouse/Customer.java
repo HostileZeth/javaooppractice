@@ -9,11 +9,11 @@ package barBossHouse;
  *
  * @author rLogic
  */
-public class Customer {
-    private String name;
-    private String surname;
-    private int age;
-    private Address address;
+public final class Customer { //immutable
+    private final String name;
+    private final String surname;
+    private final int age;
+    private final Address address;
     
     private static String DEFAULT_NAME = "";
     private static String DEFAULT_SURNAME = "";

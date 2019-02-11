@@ -9,13 +9,13 @@ package barBossHouse;
  *
  * @author rLogic
  */
-public class Address { //Immutable
-    private String city;
-    private String street;
-    private int ZIPcode;
-    private int buildingNumber;
-    private char literal;
-    private int apartmentNumber;
+public final class Address { //Immutable
+    private final String city;
+    private final String street;
+    private final int ZIPcode;
+    private final int buildingNumber;
+    private final char literal;
+    private final int roomNumber;
     
     static private String DEFAULT_STRING_VALUE ="";
     static private int DEFAULT_INT_VALUE = -1;
@@ -26,12 +26,12 @@ public class Address { //Immutable
     
     public Address ()
     {
-        city = DEFAULT_STRING_VALUE;
-        street = DEFAULT_STRING_VALUE;
-        ZIPcode = DEFAULT_INT_VALUE;
-        buildingNumber = DEFAULT_INT_VALUE;
-        literal = (char)DEFAULT_INT_VALUE;
-        apartmentNumber = DEFAULT_INT_VALUE;
+        this.city = DEFAULT_STRING_VALUE;
+        this.street = DEFAULT_STRING_VALUE;
+        this.ZIPcode = DEFAULT_INT_VALUE;
+        this.buildingNumber = DEFAULT_INT_VALUE;
+        this.literal = (char)DEFAULT_INT_VALUE;
+        this.roomNumber = DEFAULT_INT_VALUE;
     }
     
     public Address (String street, int buildingNumber, char literal, int apartmentNumber)
@@ -39,7 +39,7 @@ public class Address { //Immutable
         this.street = street;
         this.buildingNumber = buildingNumber;
         this.literal = literal;
-        this.apartmentNumber = apartmentNumber;
+        this.roomNumber = apartmentNumber;
         this.ZIPcode = DEFAULT_INT_VALUE;
         this.city = DEFAULT_CITY_VALUE;
     }
@@ -51,7 +51,7 @@ public class Address { //Immutable
         this.ZIPcode = ZIPcode;
         this.buildingNumber = buildingNumber;
         this.literal = literal;
-        this.apartmentNumber = apartmentNumber;
+        this.roomNumber = roomNumber;
     }
     
     //not setting anything but getting everything
@@ -82,7 +82,7 @@ public class Address { //Immutable
     
     public int getApartmentNumber()
     {
-        return apartmentNumber;
+        return roomNumber;
     }
     
     @Override
@@ -96,7 +96,7 @@ public class Address { //Immutable
         if (anotherAddress.getZIPcode()!= ZIPcode) return false;
         if (anotherAddress.getBuildingNumber()!= buildingNumber) return false;
         if (anotherAddress.getLiteral() != literal) return false;
-        if (anotherAddress.getApartmentNumber() != apartmentNumber) return false;     
+        if (anotherAddress.getApartmentNumber() != roomNumber) return false;     
         
         return true;
     }
@@ -105,15 +105,15 @@ public class Address { //Immutable
     public String toString()
     {
         if (street.equals("")) return "Address: <empty>";
-        if (ZIPcode==-1) return String.format("Address: %s %d, %s %d%c-%d", city, ZIPcode, street, buildingNumber, literal, apartmentNumber);
+        if (ZIPcode==-1) return String.format("Address: %s %d, %s %d%c-%d", city, ZIPcode, street, buildingNumber, literal, roomNumber);
         
-        return String.format("Address: %s, %s %d%c-%d", city, street, buildingNumber, literal, apartmentNumber);
+        return String.format("Address: %s, %s %d%c-%d", city, street, buildingNumber, literal, roomNumber);
     }
     
     @Override
     public int hashCode()
     {
-        int result = city.hashCode() ^ street.hashCode() ^ ZIPcode ^ buildingNumber ^ literal ^ apartmentNumber;
+        int result = city.hashCode() ^ street.hashCode() ^ ZIPcode ^ buildingNumber ^ literal ^ roomNumber;
         return result;
     }
     
